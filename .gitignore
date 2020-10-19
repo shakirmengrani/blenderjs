@@ -1,0 +1,12 @@
+node_modules
+seeds
+*/*.log
+server/locales/*.json
+Map.json
+Product.json
+Sku.json
+.env
+*.log
+sonar-project.properties
+.scannerwork
+./index.html
