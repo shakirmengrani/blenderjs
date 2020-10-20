@@ -10,19 +10,27 @@ export default class {
         this.port = port
         this.App = express()
         this.App.use(bodyParser.json())
-        this.initMiddlewares()
     }
-
-    initMiddlewares(){
+    async listen(){
+        await this.initMiddlewares()
+        await this.initRoutes()
+        this.App.use((req, res) => {
+            res.sendError(null, "Route not found")
+        })
+        this.App.listen(this.port)
+    }
+    async initMiddlewares(){
         for(let middleware of AppConfig.middlewares){
             if(middleware.pos == "before"){
-                this.App.use(require(middleware.url))
+                this.App.use((await import(middleware.url)).default.process)
             }
         }
     }
 
-    listen(){
-        this.App.listen()
+    async initRoutes(){
+        // Register module
+        this.App.use("/admin", (await import("./routes/admin/routes")).default)
     }
+    
 
 }
