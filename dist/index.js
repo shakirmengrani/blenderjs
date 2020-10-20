@@ -4,4 +4,4 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = __importDefault(require("./server/app"));
-app_1.default.listen(4000);
+new app_1.default(4000).listen();

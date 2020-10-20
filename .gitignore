@@ -10,3 +10,4 @@ Sku.json
 sonar-project.properties
 .scannerwork
 ./index.html
+dist/

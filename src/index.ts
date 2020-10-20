@@ -1,2 +1,2 @@
 import App from './server/app'
-App.listen(4000)
+new App(3000).listen()

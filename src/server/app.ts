@@ -1,12 +1,28 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import AppConfig from '../config/app'
 
-const App: express.Application = express()
-App.use(bodyParser.json())
-App.get("/", (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.status(200).json({"message": "Hello World !"})
-})
+export default class {
+    private App: express.Application
+    private port: number
 
-App.use(require("./routes").default)
+    constructor(port: number){
+        this.port = port
+        this.App = express()
+        this.App.use(bodyParser.json())
+        this.initMiddlewares()
+    }
 
-export default App
+    initMiddlewares(){
+        for(let middleware of AppConfig.middlewares){
+            if(middleware.pos == "before"){
+                this.App.use(require(middleware.url))
+            }
+        }
+    }
+
+    listen(){
+        this.App.listen()
+    }
+
+}
