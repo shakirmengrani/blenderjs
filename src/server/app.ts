@@ -1,6 +1,6 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import AppConfig from '../config/app'
+import * as express from 'express'
+import * as bodyParser from 'body-parser'
+import {config as AppConfig} from '../config/app'
 
 export default class {
     private App: express.Application

@@ -1,7 +1,7 @@
-import appConfig from '../config/app'
-import nodemailer from 'nodemailer'
-import fs from 'fs'
-import Mustache from 'mustache'
+import {config as appConfig} from '../config/app'
+import * as nodemailer from 'nodemailer'
+import * as fs from 'fs'
+import * as Mustache from 'mustache'
 
 
 export default class {

@@ -1,11 +1,12 @@
-require("dotenv").config()
+import * as dotenv from 'dotenv'
+dotenv.config()
 
-export default {
+export const config = {
     env:{
         provider: 'dotenv'
     },
     auth: {
-        encryptKey: process.env.AUTH_KEY?.split(",").map(c => parseInt(c)),
+        encryptKey: process.env.AUTH_KEY.split(",").map(c => parseInt(c)),
         securePath: []
     },
     middlewares: [
@@ -60,4 +61,3 @@ export default {
         }
     }
 }
-

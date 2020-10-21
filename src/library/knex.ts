@@ -1,5 +1,5 @@
-import AppConfig from '../config/app'
-import knex from 'knex'
+import {config as AppConfig} from '../config/app'
+import * as knex from 'knex'
 
 const db = knex({
   debug: process.env.NODE_ENV == "production" ? false : true,

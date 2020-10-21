@@ -1,5 +1,5 @@
-import aesjs from 'aes-js'
-import AppConfig from '../config/app'
+import * as aesjs from 'aes-js'
+import {config as AppConfig} from '../config/app'
 const encryptKey: any = AppConfig.auth.encryptKey
 // An example 128-bit key (16 bytes * 8 bits/byte = 128 bits)
 // let key = [1,2,3,4,5,6,7,8,9,0,0,0,1,2,3,4];

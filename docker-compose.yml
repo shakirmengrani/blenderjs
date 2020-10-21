@@ -26,7 +26,7 @@ services:
       TZ: Asia/Karachi
     volumes:
       - ./:/code
-    command: "npm start"
+    command: "pm2 start pm2.json --no-daemon"
     ports:
       - 8000:4000
     depends_on:
