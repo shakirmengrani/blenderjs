@@ -1,5 +1,6 @@
 import * as express from 'express'
 import { connection } from '../../../../library/typeorm'
+
 export default class {
     public routes: express.Router = express.Router()
     
@@ -17,8 +18,8 @@ export default class {
         try{
             const user = (await connection()).getRepository("User")
             const newUser = await user.save({
-                firstName: "Shakir", 
-                lastName: "Mengrani",
+                first_name: "Shakir",
+                last_name: "Mengrani",
                 age: 29
             })
             res.sendJSON(newUser)
