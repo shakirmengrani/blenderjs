@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { connection } from '../../../../library/typeorm'
+import { getConnection } from 'typeorm'
 
 export default class {
     public routes: express.Router = express.Router()
@@ -16,8 +16,7 @@ export default class {
 
     async createUser(req: express.Request, res: express.Response){
         try{
-            const user = (await connection()).getRepository("User")
-            const newUser = await user.save({
+            const newUser = await getConnection().getRepository("User").save({
                 first_name: "Shakir",
                 last_name: "Mengrani",
                 age: 29

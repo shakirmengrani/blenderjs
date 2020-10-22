@@ -1,2 +1,5 @@
 import App from './server/app'
-new App(4000).listen()
+import {connection} from './library/typeorm'
+connection().then(() => {
+    new App(4000).listen()
+}).catch(err => console.log(err))
