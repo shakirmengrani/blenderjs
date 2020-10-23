@@ -11,7 +11,7 @@ export const config = {
     },
     middlewares: [
         {"url": "./middlewares/response", "pos": "before"},
-        // {"url": "./middlewares/passport-auth", "pos": "before"},
+        {"url": "./middlewares/passport-auth", "pos": "before"},
         // {"url": "./middlewares/role", "pos": "before"},
         // {"url": "./middlewares/error", "pos": "after"},
     ],
