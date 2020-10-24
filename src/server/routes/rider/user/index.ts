@@ -34,7 +34,7 @@ export class User {
 
     async createUser(req: express.Request, res: express.Response){
         try{
-            const newUser = await UserModel.createUser(req.body, modules.ROLES.ADMIN)
+            const newUser = await UserModel.createUser(req.body, modules.ROLES.RIDER)
             res.sendJSON(newUser, messages.Success(messages.SuccessMsg.CREATE, modules.USER))
         }catch(err){
             res.sendError(err, messages.Error(messages.ErrorMsg.SERVER_ERROR))

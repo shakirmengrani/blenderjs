@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
 import { User } from './User'
 
 @Entity({
@@ -27,6 +27,6 @@ export class Order {
     @Column("timestamp", { default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP"})
     updateAt: Date;
 
-    @OneToOne(() => User)
+    @ManyToOne(() => User)
     user: User
 }

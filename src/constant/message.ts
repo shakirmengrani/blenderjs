@@ -13,7 +13,8 @@ export const ErrorMsg = {
     SERVER_ERROR: "Server Error",
     TOKEN_EXPIRED: "token has beed expired",
     UN_RECOGNIZED_TOKEN: "un-recognized token",
-    DATABASE_CONNECTION_FAILED: "Database connection failed"
+    DATABASE_CONNECTION_FAILED: "Database connection failed",
+    USER_NOT_FOUND: "User not found"
 }
 
 

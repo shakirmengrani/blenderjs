@@ -9,15 +9,24 @@ export class UserModel{
         return getRepository(UserRole).findOne(id)
     }
 
-    static async createUser(params: Object, roles: UserRole[]): Promise<User>{
+    static async getUserById(id: number): Promise<User>{
+        return getRepository(User).findOne(id, {relations: ["roles"]})
+    }
+
+    static async getUserByMobile(mobile: string): Promise<User>{
+        return getRepository(User).findOne({mobile}, {relations: ["roles"]})
+    }
+
+    static async createUser(params: Object, role_id: number): Promise<User>{
         const newUser = new User()
+        const role = await this.getRoleById(role_id)
         for(let param of Object.keys(params)){
             if(param === "password"){
                 params[param] = encrypt(params[param])
             }
             newUser[param] = params[param]
         }
-        newUser.roles = roles
+        newUser.roles = [role]
         return getRepository(User).save(newUser)
     }
 
