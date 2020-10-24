@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-export default class {
+export class middleware {
     static process(req: Request, res: Response, next: NextFunction){
         // Just for temp impl
         if(req.query.hasOwnProperty("page")){
@@ -20,7 +20,7 @@ export default class {
         }
 
         res.sendError = function (error_obj: Array<any> | Object | null, msg: string = "", status: number = 200) {
-
+            console.log("error", error_obj)
             // writeLog({"scheme": req.protocol, "url": req.originalUrl, "RequestMethod": req.method, "IP": req.ip, "headers": req.headers, "body": req.body, "query": req.query, "res": res.statusCode}, msg)
             return res.status(status).json({ status: false, message: msg ? msg : msg, data: null, error: error_obj });
         }

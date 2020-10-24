@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import * as Mustache from 'mustache'
 
 
-export default class {
+export class Mail {
     private transporter: nodemailer.Transporter
     
     constructor(){
@@ -30,7 +30,6 @@ export default class {
                 console.log("mail", email)
             }
         }catch(err) {
-            console.log("err", err)
             return err;
         }
     }

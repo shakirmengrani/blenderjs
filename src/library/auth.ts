@@ -12,7 +12,7 @@ export const verify = (token: string = null) => {
     return JWT.verify(token, JWK.asKey(AppConfig.openid.jwt.secretOrKey))
 }
 
-export const issueToken = (user: any, expiresIn: string=AppConfig.openid.jwt.expiresIn) => {
+export const issueToken = (user: object, expiresIn: string=AppConfig.openid.jwt.expiresIn): object => {
     const payload = {
         user, "iat": Date.now(), "aud": AppConfig.openid.jwt.audience
     } 

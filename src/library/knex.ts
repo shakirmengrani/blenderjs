@@ -1,7 +1,7 @@
 import {config as AppConfig} from '../config/app'
 import * as knex from 'knex'
 
-const db = knex({
+export const db = knex({
   debug: process.env.NODE_ENV == "production" ? false : true,
   client: AppConfig.db.dialect,
   connection: {
@@ -25,5 +25,3 @@ const db = knex({
       }
   }
 });
-
-export default db

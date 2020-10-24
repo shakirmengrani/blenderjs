@@ -2,17 +2,16 @@ import * as passport from 'passport'
 import {config as AppConfig} from '../config/app'
 import { dateComp } from './date'
 import {Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt'
-
+import * as messages from '../constant/message'
 const verify_jwt = (jwt_payload, done) => {
     // do some logical thing
-    console.log(jwt_payload, jwt_payload.exp, jwt_payload.iat, new Date().getTime())
     if(jwt_payload.aud == AppConfig.openid.jwt.audience){
         if(dateComp(Math.floor(new Date().getTime() / 1000), jwt_payload.exp, 'gt')){
             return done(null, jwt_payload.user)
         }
-        return done("token has beed expired", null)
+        return done(messages.ErrorMsg.TOKEN_EXPIRED, null)
     }else{
-        return done("un-recognized token", null)
+        return done(messages.ErrorMsg.UN_RECOGNIZED_TOKEN, null)
     }
 }
 
@@ -36,5 +35,4 @@ passport.use(new JwtStrategy({
 
 
 
-
-module.exports = passport;
+export const Passport = passport

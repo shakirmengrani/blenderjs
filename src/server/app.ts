@@ -1,8 +1,9 @@
+import * as fs from 'fs'
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import {config as AppConfig} from '../config/app'
-
-export default class {
+import { Passport } from '../library/passport'
+export class App {
     private App: express.Application
     private port: number
 
@@ -10,6 +11,7 @@ export default class {
         this.port = port
         this.App = express()
         this.App.use(bodyParser.json())
+        this.App.use(Passport.initialize())
     }
     async listen(){
         await this.initMiddlewares()
@@ -17,20 +19,24 @@ export default class {
         this.App.use((req, res) => {
             res.sendError(null, "Route not found")
         })
-        this.App.listen(this.port)
+        this.App.listen(this.port, () => {
+            console.log(`Server is running on port ${this.port}`)
+        })
     }
     async initMiddlewares(){
         for(let middleware of AppConfig.middlewares){
             if(middleware.pos == "before"){
-                this.App.use((await import(middleware.url)).default.process)
+                console.log("Loading middleware", `${middleware.url}`)
+                this.App.use((await import(middleware.url)).middleware.process)
             }
         }
     }
 
     async initRoutes(){
         // Register module
-        this.App.use("/admin", (await import("./routes/admin/routes")).default)
+        for(let route of fs.readdirSync(`${__dirname}/routes`)){
+            console.log("Loading routes", `./routes/${route}/routes`)
+            this.App.use(`/${route}`, (await import(`./routes/${route}/routes`)).router)
+        }
     }
-    
-
 }

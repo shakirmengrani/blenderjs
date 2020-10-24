@@ -1,11 +1,46 @@
-import { getConnection } from 'typeorm'
-
+import { getRepository } from 'typeorm'
+import { User } from '../entity/User'
+import { UserRole } from '../entity/UserRole'
+import { encrypt } from '../library/encryption'
+import { issueToken } from '../library/auth'
 export class UserModel{
-    constructor(){
 
+    static async getRoleById(id: number): Promise<UserRole>{
+        return getRepository(UserRole).findOne(id)
     }
 
-    loginByMobileEmail(){
-        
+    static async createUser(params: Object, roles: UserRole[]): Promise<User>{
+        const newUser = new User()
+        for(let param of Object.keys(params)){
+            if(param === "password"){
+                params[param] = encrypt(params[param])
+            }
+            newUser[param] = params[param]
+        }
+        newUser.roles = roles
+        return getRepository(User).save(newUser)
+    }
+
+    static async loginByEmailMobile(email: string| null, mobile: string | null, password: string): Promise<object> {
+        let findParams = {password: encrypt(password)}
+        if(email){
+            findParams["email"] = email
+        }
+        if(mobile){
+            findParams["mobile"] = mobile
+        }
+        const user: User = await getRepository(User).findOne(findParams, {relations: ["roles"]})
+        return {
+            token: issueToken({id: user.id, role: user.roles[0].name})["token"],
+            refresh: issueToken({id: user.id, role: user.roles[0].name}, "7d")["token"]
+        }
+    }
+
+    static async loginByToken(id: number): Promise<object>{
+        const user: User = await getRepository(User).findOne(id, {relations: ["roles"]})
+        return {
+            token: issueToken({id: user.id, role: user.roles[0].name})["token"],
+            refresh: issueToken({id: user.id, role: user.roles[0].name}, "7d")["token"]
+        }
     }
 }

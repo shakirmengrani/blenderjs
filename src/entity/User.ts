@@ -11,10 +11,15 @@ export class User {
     @Column()
     name: string;
 
-    @Column()
+    @Column({
+        unique: true,
+        nullable: false
+    })
     mobile: string;
 
-    @Column()
+    @Column({
+        unique: true
+    })
     email: string;
 
     @Column()
@@ -33,7 +38,15 @@ export class User {
         cascade: ["insert", "update", "remove", "soft-remove", "recover"]
     })
     @JoinTable({
-        name: "user_user_roles"
+        name: "user_user_roles",
+        inverseJoinColumn: {
+            name: "role_id",
+            referencedColumnName: "id"
+        },
+        joinColumn: {
+            referencedColumnName: "id",
+            name: "user_id"
+        }
     })
     roles: UserRole[];
 }

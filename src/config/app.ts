@@ -7,7 +7,8 @@ export const config = {
     },
     auth: {
         encryptKey: process.env.AUTH_KEY.split(",").map(c => parseInt(c)),
-        securePath: []
+        securePath: ["admin"],
+        examptKeyword: ["login", "register", "forget"]
     },
     middlewares: [
         {"url": "./middlewares/response", "pos": "before"},
