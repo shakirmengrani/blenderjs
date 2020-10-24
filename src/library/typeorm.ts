@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {config as AppConfig} from '../config/app'
 import {createConnection, Connection} from "typeorm";
-import {User} from '../entity/User'
 
 export function connection (): Promise<Connection>{
     return createConnection({
@@ -11,8 +10,10 @@ export function connection (): Promise<Connection>{
         username: AppConfig.db.username,
         password: AppConfig.db.password,
         port:5432,
+        synchronize: true,
+        logging: true,
         entities: [
-            User
+            `${__dirname}/../entity/**/*.ts`
         ]
     })
 }

@@ -15,9 +15,9 @@ export default class {
                 }
             })(req, res, next);
         }else{
-            const is_secure = appConfig.auth.securePath.some(path => {
+            const is_secure = appConfig.auth.securePath.some((path: string) => {
                 const patt = new RegExp(path);
-                return  patt.exec(req.path);
+                return  patt.exec(req.path) ? true : false;
             })
             if(is_secure){
                 if(
