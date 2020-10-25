@@ -18,5 +18,13 @@ export class OrderModel{
         }
         throw new Error(messages.ErrorMsg.USER_NOT_FOUND)
     }
+
+    static async updateOrder(id: number, params: object): Promise<Order>{
+        const order = await getRepository(Order).findOne(id)
+        for(let param of Object.keys(params)){
+            order[param] = params[param]
+        }
+        return getRepository(Order).save(order)
+    }
     
 }

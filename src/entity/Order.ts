@@ -21,6 +21,24 @@ export class Order {
     @Column("float", {default: () => "0"})
     received: Number
 
+    @Column("text", {
+        nullable: true
+    })
+    address: String
+
+    @Column({
+        nullable: true
+    })
+    area: String
+
+    @Column("text", {
+        nullable: true
+    })
+    reason: String
+
+    @Column({default: () => "1"})
+    paymentMethod: Number
+
     @Column("timestamp", { default: () => "CURRENT_TIMESTAMP"})
     createdAt: Date;
 
@@ -29,4 +47,9 @@ export class Order {
 
     @ManyToOne(() => User)
     user: User
+
+    @ManyToOne(() => User, {
+        nullable: true
+    })
+    rider: User
 }

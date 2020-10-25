@@ -24,5 +24,13 @@ export class Order {
             res.sendError(err, messages.Error(messages.ErrorMsg.SERVER_ERROR))
         }
     }
+
+    async updateOrder(req: express.Request, res: express.Response){
+        try{
+
+        }catch(err){
+            res.sendError(err, messages.Error(messages.ErrorMsg.SERVER_ERROR))
+        }
+    }
     
 }
