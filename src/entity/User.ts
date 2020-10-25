@@ -18,11 +18,14 @@ export class User {
     mobile: string;
 
     @Column({
-        unique: true
+        unique: true,
+        nullable: true
     })
     email: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     password: string;
 
     @Column( "boolean", { default: () => "true" } )

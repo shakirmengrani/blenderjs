@@ -12,13 +12,13 @@ export class Order {
     @Column()
     orderNumber: string;
 
-    @Column()
+    @Column({default: () => "0"})
     status: Number
 
-    @Column("float")
+    @Column("float", {default: () => "0"})
     price: Number
 
-    @Column("float")
+    @Column("float", {default: () => "0"})
     received: Number
 
     @Column("timestamp", { default: () => "CURRENT_TIMESTAMP"})

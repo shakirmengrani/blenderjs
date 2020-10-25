@@ -12,6 +12,7 @@ export class OrderModel{
             for(let param of Object.keys(params)){
                 newOrder[param] = params[param]
             }
+            newOrder.orderNumber = new Date().getTime().toString()
             newOrder.user = user
             return getRepository(Order).save(newOrder)
         }

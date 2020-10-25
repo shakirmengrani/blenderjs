@@ -14,6 +14,15 @@ export class App {
         this.App.use(Passport.initialize())
     }
     async listen(){
+        this.App.get("/", (req, res) => {
+            const pkg = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`).toString())
+            res.status(200).json({
+                name: pkg.name,
+                version: pkg.version,
+                description: pkg.description,
+                environment: process.env.NODE_ENV
+            })
+        })
         await this.initMiddlewares()
         await this.initRoutes()
         this.App.use((req, res) => {

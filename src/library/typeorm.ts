@@ -10,8 +10,8 @@ export function connection (): Promise<Connection>{
         username: AppConfig.db.username,
         password: AppConfig.db.password,
         port:5432,
-        synchronize: true,
-        logging: true,
+        synchronize: process.env.NODE_ENV == "development" ? true : false,
+        logging: process.env.NODE_ENV == "development" ? true : false,
         entities: [
             `${__dirname}/../entity/**/*.ts`
         ]

@@ -1,8 +1,8 @@
 // const i18n = require("i18n")
-export const excludeOthers = (obj: any, keys: Array<string | number>=[]) => {
+export const excludeOthers = (obj: object, keys: Array<string>=[]): Array<object> => {
     if(Array.isArray(obj)){
-        return Object.assign({}, obj).map((item) => {
-            keys.forEach((key) => {
+        return Object.assign({}, obj).map((item: object) => {
+            keys.forEach((key: string) => {
                 if(item.hasOwnProperty(key)){
                 }else{
                     delete item[key];
@@ -11,8 +11,8 @@ export const excludeOthers = (obj: any, keys: Array<string | number>=[]) => {
             return item;
         });
     }else{
-        return [Object.assign({}, obj)].map((item) => {
-            keys.forEach((key) => {
+        return [Object.assign({}, obj)].map((item: object) => {
+            keys.forEach((key: string) => {
                 if(item.hasOwnProperty(key)){
                 }else{
                     delete item[key];
@@ -23,9 +23,9 @@ export const excludeOthers = (obj: any, keys: Array<string | number>=[]) => {
     }
 }
 
-export const removeFromObject = (obj: any, keys: Array<string | number>=[]) => {
+export const removeFromObject = (obj: object, keys: Array<string>=[]): Array<object> => {
     if(Array.isArray(obj)){
-        return Object.assign([], obj).map((item: any) => {
+        return Object.assign([], obj).map((item: object) => {
             keys.forEach((key) => {
                 if(item.hasOwnProperty(key)){
                     delete item[key];
@@ -46,11 +46,11 @@ export const removeFromObject = (obj: any, keys: Array<string | number>=[]) => {
 }
 
 
-export const retainFromObject = (obj: any, keys: Array<string | number>=[]) => {
+export const retainFromObject = (obj: object, keys: Array<string>=[]): Array<object> => {
     if(Array.isArray(obj)){
-        return Object.assign([], obj).map((item: any) => {
-            let resObj: any = {};
-            keys.forEach((key: string | number) => {
+        return Object.assign([], obj).map((item: object) => {
+            let resObj: object = {};
+            keys.forEach((key: string) => {
                 if(item.hasOwnProperty(key)){
                     resObj[key] = item[key];
                 }
@@ -59,8 +59,8 @@ export const retainFromObject = (obj: any, keys: Array<string | number>=[]) => {
         });
     }else{
         return [Object.assign({}, obj)].map((item) => {
-            let resObj: any = {};
-            keys.forEach((key) => {
+            let resObj: object = {};
+            keys.forEach((key: string) => {
                 if(item.hasOwnProperty(key)){
                     resObj[key] = item[key];
                 }
