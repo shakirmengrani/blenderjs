@@ -21,5 +21,5 @@ export class UserRole {
     updateAt: Date;
 
     @ManyToMany(() => User, user => user.roles)
-    questions: User[];
+    users: User[];
 }
