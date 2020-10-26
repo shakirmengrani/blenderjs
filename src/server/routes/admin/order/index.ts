@@ -43,7 +43,9 @@ export class Order {
 
     async updateOrder(req: express.Request, res: express.Response){
         try{
-
+            const {id} = req.params
+            const order = await OrderModel.updateOrder(parseInt(id.toString()),req.body)
+            res.sendJSON(order, messages.Success(messages.SuccessMsg.UPDATE, modules.ORDER))
         }catch(err){
             res.sendError(err, messages.Error(messages.ErrorMsg.SERVER_ERROR))
         }
