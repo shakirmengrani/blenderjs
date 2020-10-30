@@ -17,14 +17,10 @@ export class Order {
     async getOrders(req: express.Request, res: express.Response){
         try{
             const {from, to, status} = req.query;
-            const orders = await UserModel.getOrdersByDateRange(from.toString(), to.toString(), parseInt(status.toString()))
-            if(orders.length > 0){
-                res.sendJSON(orders)
-            }else{
-                res.sendError(null, messages.Error(messages.ErrorMsg.NOT_FOUND))    
-            }
+            const orders = await OrderModel.getOrdersByDateRange(from.toString(), to.toString(), parseInt(status.toString()))
+            res.sendJSON(orders)
         }catch(err){
-            res.sendError(err, messages.Error(messages.ErrorMsg.SERVER_ERROR))
+            res.sendError(err, messages.Error(err.message))
         }
     }
 
@@ -37,7 +33,7 @@ export class Order {
             const newOrder = await OrderModel.makeOrder(removeFromObject(req.body, ["mobile"])[0], req.body.mobile)
             res.sendJSON(newOrder, messages.Success(messages.SuccessMsg.CREATE, modules.ORDER))
         }catch(err){
-            res.sendError(err, messages.Error(messages.ErrorMsg.SERVER_ERROR))
+            res.sendError(err, messages.Error(err.message))
         }
     }
 
@@ -47,8 +43,7 @@ export class Order {
             const order = await OrderModel.updateOrder(parseInt(id.toString()),req.body)
             res.sendJSON(order, messages.Success(messages.SuccessMsg.UPDATE, modules.ORDER))
         }catch(err){
-            res.sendError(err, messages.Error(messages.ErrorMsg.SERVER_ERROR))
+            res.sendError(err, messages.Error(err.message))
         }
-    }
-    
+    }   
 }

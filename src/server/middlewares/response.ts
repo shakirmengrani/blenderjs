@@ -19,10 +19,10 @@ export class middleware {
             return res.status(200).json(resObj);
         }
 
-        res.sendError = function (error_obj: Array<any> | Object | null, msg: string = "", status: number = 200) {
+        res.sendError = function (error_obj: Array<any> | Object | null, msg: string = "") {
             console.log("error", error_obj)
             // writeLog({"scheme": req.protocol, "url": req.originalUrl, "RequestMethod": req.method, "IP": req.ip, "headers": req.headers, "body": req.body, "query": req.query, "res": res.statusCode}, msg)
-            return res.status(status).json({ status: false, message: msg ? msg : msg, data: null, error: error_obj });
+            return res.status(!isNaN(parseInt(msg.split(" ")[0].substr(0,3))) ? parseInt(msg.split(" ")[0].substr(0,3)) : 500).json({ status: false, message: msg ? msg : msg, data: null, error: error_obj });
         }
         return next();
     }
