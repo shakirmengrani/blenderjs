@@ -9,19 +9,9 @@ export class User {
     public routes: express.Router = express.Router()
     
     constructor(){
-        this.routes.get("/orders", this.getOrders)
         this.routes.post("/login", validation.UserLogin.process, this.loginUser)
         this.routes.post("/refreshtoken", this.refreshToken)
         this.routes.post("/register", this.createUser)
-    }
-    
-    async getOrders(req: express.Request, res: express.Response){
-        try{
-            const orders = await OrderModel.getOrdersByUserId(req.user["id"], "users.rider_orders")
-            res.sendJSON(orders)
-        }catch(err){
-            res.sendError(err, messages.Error(err.message))
-        }
     }
 
     async refreshToken(req: express.Request, res: express.Response){
