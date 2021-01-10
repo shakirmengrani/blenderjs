@@ -24,6 +24,11 @@ export class middleware {
             // writeLog({"scheme": req.protocol, "url": req.originalUrl, "RequestMethod": req.method, "IP": req.ip, "headers": req.headers, "body": req.body, "query": req.query, "res": res.statusCode}, msg)
             return res.status(!isNaN(parseInt(msg.split(" ")[0].substr(0,3))) ? parseInt(msg.split(" ")[0].substr(0,3)) : 500).json({ status: false, message: msg ? msg : msg, data: null, error: error_obj });
         }
+        res.log = function(...rest): void {
+            if(process.env.NODE_ENV == "development"){
+                console.log(...rest)
+            }
+        }
         return next();
     }
 }

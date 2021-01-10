@@ -7,6 +7,7 @@ declare module "express-serve-static-core" {
     }
     export interface Response {
         sendJSON(data: Array<any> | Object | null, msg?: string): Response<any>
-        sendError(error_obj: Array<any> | Object | null, msg?: string, status?: number)
+        sendError(error_obj: Array<any> | Object | null, msg?: string, status?: number): Response<any>
+        log(...rest): void
     }
 }
