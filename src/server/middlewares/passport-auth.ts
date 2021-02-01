@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import * as passport from 'passport'
-import {config as appConfig} from '../../config/app'
+import ctx from '../context'
 import * as messages from '../../constant/message'
 
 export class middleware {
@@ -16,12 +16,12 @@ export class middleware {
                 }
             })(req, res, next);
         }else{
-            const is_secure = appConfig.auth.securePath.some((path: string) => {
+            const is_secure = ctx.securePath.some((path: string) => {
                 const patt = new RegExp(path);
                 return  patt.exec(req.path) ? true : false;
             })
             if(is_secure){
-                for(let word of appConfig.auth.examptKeyword){
+                for(let word of ctx.examptKeyword){
                     if(req.path.indexOf(word) > -1){
                         return next()
                     }

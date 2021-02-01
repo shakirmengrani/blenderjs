@@ -1,8 +1,10 @@
 .idea/
 .vscode/
-node_modules/
+./node_modules/
 build/
 tmp/
 temp/
 *-lock*
 .env
+ormconfig.json
+node_modules

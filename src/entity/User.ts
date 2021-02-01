@@ -1,9 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, ManyToOne, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, getRepository} from "typeorm";
 import { UserRole } from './UserRole'
-import { Order } from './Order'
-@Entity({
-    name: "users"
-})
+import * as message from '../constant/message'
+@Entity({name: "users"})
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -12,21 +10,13 @@ export class User {
     @Column()
     name: string;
 
-    @Column({
-        unique: true,
-        nullable: false
-    })
+    @Column({unique: true, nullable: false})
     mobile: string;
 
-    @Column({
-        unique: true,
-        nullable: true
-    })
+    @Column({unique: true, nullable: true})
     email: string;
 
-    @Column({
-        nullable: true
-    })
+    @Column({nullable: true})
     password: string;
 
     @Column( "boolean", { default: () => "true" } )
@@ -38,9 +28,7 @@ export class User {
     @Column("timestamp", { default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP"})
     updateAt: Date;
 
-    @ManyToMany(() => UserRole, {
-        cascade: ["insert", "update", "remove", "soft-remove", "recover"]
-    })
+    @ManyToMany(() => UserRole, {cascade: ["insert", "update", "remove", "soft-remove", "recover"]})
     @JoinTable({
         name: "user_user_roles",
         inverseJoinColumn: {
@@ -52,11 +40,5 @@ export class User {
             name: "user_id"
         }
     })
-    roles: UserRole[];
-
-    @OneToMany(() => Order, order => order.user)
-    orders: Order[]
-
-    @OneToMany(() => Order, order => order.rider)
-    rider_orders: Order[]
+    roles: UserRole[]; 
 }

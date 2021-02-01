@@ -4,7 +4,8 @@ export const ORDER = "Order"
 export const ROLES = {
     ADMIN: 1,
     RIDER: 2,
-    CUSTOMER: 3
+    CUSTOMER: 3,
+    APP: 4
 }
 
 export const ORDER_STATUS = {

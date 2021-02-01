@@ -11,9 +11,9 @@ export class Mail {
         this.transporter = nodemailer.createTransport(appConfig.mail)  
     }
     
-    sendMail(payload: any){
+    sendMail(payload: any): Promise<nodemailer.SentMessageInfo>{
         return this.transporter.sendMail({
-            from: 'info@example.com', // sender address
+            from: 'info@localhost', // sender address
             to: payload.to, // list of receivers
             subject: payload.subject, // Subject line
             text: payload.text, // plain text body

@@ -3,7 +3,8 @@
     "name": "api",
     "script": "npm run dev",
     "time": true,
-    "instances": 1,
+    "exec_mode": "cluster",
+    "instances": 2,
     "autorestart": true,
     "watch": true,
     "env": {

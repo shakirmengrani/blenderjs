@@ -1,13 +1,12 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
-
 export const config = {
+    https: process.env.HTTPS,
     env:{
         provider: 'dotenv'
     },
     auth: {
         encryptKey: process.env.AUTH_KEY.split(",").map(c => parseInt(c)),
-        securePath: ["admin", "rider"],
         examptKeyword: ["login", "register", "forget"]
     },
     middlewares: [
@@ -24,6 +23,9 @@ export const config = {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
         host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        sync: process.env.DB_SYNC == "true" ? true : false,
+        logging: process.env.DB_LOGGING == "true" ? true : false,
         dialect: "postgres"
     },
     redis:{
@@ -32,7 +34,7 @@ export const config = {
     },
     mail: {
         host: process.env.MAIL_HOST,
-        port: 587,
+        port: Number(process.env.SMTP_PORT),
         secure: false, // true for 465, false for other ports
         auth: {
             user: process.env.MAIL_USER, // generated ethereal user

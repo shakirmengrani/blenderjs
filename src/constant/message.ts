@@ -14,7 +14,9 @@ export const ErrorMsg = {
     TOKEN_EXPIRED: "401 Token has beed expired",
     UN_RECOGNIZED_TOKEN: "401 Un-recognized token",
     DATABASE_CONNECTION_FAILED: "500 Database connection failed",
-    USER_NOT_FOUND: "404 User not found"
+    USER_NOT_FOUND: "404 User not found",
+    YET_NOT_IMPL: "404 Yet not implemented",
+    INVALID: "422 Unprocessable request"
 }
 
 
@@ -23,6 +25,5 @@ export function Success(code: string, module: string){
 }
 
 export function Error(code: string){
-    console.log("code", code)
     return !isNaN(parseInt(code.split(" ")[0].substr(0,3))) ? `${code}` : ErrorMsg.SERVER_ERROR
 }

@@ -31,9 +31,9 @@ export function connection (): Promise<Connection>{
         database: AppConfig.db.database,
         username: AppConfig.db.username,
         password: AppConfig.db.password,
-        port:5432,
-        synchronize: process.env.NODE_ENV == "development" ? true : false,
-        logging: process.env.NODE_ENV == "development" ? true : false,
+        port: AppConfig.db.port,
+        synchronize: AppConfig.db.sync,
+        logging: AppConfig.db.logging,
         
         entities: [
             `${__dirname}/../entity/**/*.ts`

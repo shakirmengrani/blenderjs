@@ -8,18 +8,18 @@ FROM node:13.8.0
 
 RUN mkdir /code
 WORKDIR /code
-# COPY package.json .
+COPY package.json .
 # COPY pm2.json .
 RUN npm install -g ts-node
 RUN npm install -g typescript
-# RUN npm install -g pm2
 RUN npm install -g nodemon
 RUN npm install -g cross-env
-RUN npm install knex -g
-RUN npm install typeorm -g
+RUN npm install -g knex
+RUN npm install -g typeorm
 RUN npm install -g gulp-cli
+RUN npm i
 # RUN npm install pg-native -g
 # Show current folder structure in logs
 # RUN ls -al -R
-# CMD pm2-runtime start pm2.json 
+COPY . /code
 ENV NPM_CONFIG_LOGLEVEL warn
