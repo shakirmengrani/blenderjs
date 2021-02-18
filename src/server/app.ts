@@ -27,8 +27,8 @@ export class App {
             }
         }
         this.boot.makeRoute(this.App)
+        await this.boot.graphal(this.App)
         this.App.use((req, res) => res.sendError(null, "Route not found"))
-        this.App.listen(this.port, () => console.log(`Server is running on port ${this.port}`))
-        
+        this.App.listen(this.port, () => console.log(`Server is running on port ${this.port}`))        
     }
 }

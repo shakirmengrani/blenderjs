@@ -1,4 +1,4 @@
-FROM node:13.8.0
+FROM node
 
 # RUN apt-get update \
 #     && apt-get install -fy \

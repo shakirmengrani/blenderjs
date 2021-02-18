@@ -118,3 +118,9 @@ export const shuffleArray = (array: Array<any>) => {
     }
     return array;
 }
+
+export const mapObjects = (obj, params) => {
+    Object.keys(params).forEach((param) => {
+        obj[param] = params[param]
+    })
+}

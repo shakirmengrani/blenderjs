@@ -1,6 +1,6 @@
 import * as express from 'express'
 
-export interface IAuthfController{
+export interface IAuthController{
     Login(req: express.Request, res: express.Response, next: express.NextFunction)
     Register(req: express.Request, res: express.Response, next: express.NextFunction)
     Logout(req: express.Request, res: express.Response, next: express.NextFunction)

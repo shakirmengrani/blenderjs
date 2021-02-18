@@ -1,33 +1,44 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, getRepository} from "typeorm";
+import { ObjectType, Field, ID } from 'type-graphql'
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable} from "typeorm";
 import { UserRole } from './UserRole'
-import * as message from '../constant/message'
+import { __Type } from 'graphql';
+@ObjectType()
 @Entity({name: "users"})
 export class User {
 
+    @Field(() => ID)
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
-    @Column()
-    name: string;
-
-    @Column({unique: true, nullable: false})
-    mobile: string;
-
-    @Column({unique: true, nullable: true})
-    email: string;
-
+    @Field()
     @Column({nullable: true})
-    password: string;
+    name?: string;
+    
+    @Field()
+    @Column({unique: true, nullable: false})
+    mobile?: string;
+    
+    @Field()
+    @Column({unique: true, nullable: true})
+    email?: string;
 
+    @Field()
+    @Column({nullable: true})
+    password?: string;
+
+    @Field()
     @Column( "boolean", { default: () => "true" } )
-    isActive: boolean;
-
+    isActive?: boolean;
+    
+    @Field()
     @Column("timestamp", { default: () => "CURRENT_TIMESTAMP"})
-    createdAt: Date;
+    createdAt?: Date;
 
+    @Field()
     @Column("timestamp", { default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP"})
-    updateAt: Date;
+    updateAt?: Date;
 
+    @Field(() => [UserRole])
     @ManyToMany(() => UserRole, {cascade: ["insert", "update", "remove", "soft-remove", "recover"]})
     @JoinTable({
         name: "user_user_roles",
@@ -40,5 +51,5 @@ export class User {
             name: "user_id"
         }
     })
-    roles: UserRole[]; 
+    roles?: Array<UserRole>; 
 }

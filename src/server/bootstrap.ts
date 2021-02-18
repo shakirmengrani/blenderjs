@@ -1,7 +1,9 @@
+import { graphqlServer } from './graphql'
+import {Application} from 'express'
 import ctx from './context'
 import {App} from './module/App/controller'
 import {Auth} from './module/Auth/controller'
-
+import {AuthResolver} from './module/Auth/resolver'
 export default class {
     __init__(){
         [
@@ -11,7 +13,14 @@ export default class {
         .forEach(cls => Object.call(cls, "constructor"))
     }
 
-    makeRoute(app){
+    async graphal(app: Application){
+        const server = await new graphqlServer([
+            AuthResolver
+        ]).build()
+        server.applyMiddleware({app, bodyParserConfig: { type: "json" }})
+    }
+
+    makeRoute(app: Application){
         ctx.routes.forEach(route => {
             if(ctx.controllers[route["target"]]){
                 let _path = `/${ctx.controllers[route["target"]].name.toLowerCase()}${route["path"]}`

@@ -1,17 +1,15 @@
 import * as express from 'express'
 import {Route, Controller} from '../../common/decorators'
-import {IAuthfController} from '../../common/interfaces/authController'
+import {IAuthController} from '../../common/interfaces/authController'
 import * as message from '../../../constant/message'
 import { LoginValidation, RegisterValidation } from './validation'
-import {AppService} from './service'
+import {AuthService} from './service'
+import { removeFromObject } from '../../helpers/objectFilter'
 
+const authService: AuthService = new AuthService()
 @Controller(null, true)
-export class Auth implements IAuthfController{
-    private appService: AppService;
+export class Auth implements IAuthController{
 
-    constructor(){
-        this.appService = new AppService()
-    }
     @Route("POST", "/login", true)
     async Login(req: express.Request, res: express.Response, next: express.NextFunction){
         try{
@@ -19,10 +17,11 @@ export class Auth implements IAuthfController{
             if(isValid.length > 0){
                 res.sendError(isValid, message.ErrorMsg.INVALID)
             }else{
-                const userToken = await this.appService.login(req.body.mobile, req.body.password)
+                const userToken = await authService.login(req.body)
                 res.sendJSON(userToken)
             }
         }catch(err){
+            console.log("error", err)
             res.sendError(err, message.ErrorMsg.SERVER_ERROR)
         }
     }
@@ -34,7 +33,8 @@ export class Auth implements IAuthfController{
             if(isValid.length > 0){
                 res.sendError(isValid, message.ErrorMsg.INVALID)
             }else{
-                const user = await this.appService.register(req.body)
+                const user = await authService.register( removeFromObject(req.body, ["role_id"])[0], req.body.role_id)
+                res.sendJSON(user)
             }
         }catch(err){
             res.sendError(null, message.ErrorMsg.SERVER_ERROR)

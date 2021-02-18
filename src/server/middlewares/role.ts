@@ -6,6 +6,8 @@ export class middleware {
             const _role = req.url.split("/")[1];
             if(String(req.user["role"]).toLocaleLowerCase() === _role){
                 next()
+            }else if(_role == "graphql"){
+                next()
             }else{
                 // nested / inner role
                 res.sendError(null, messages.Error(messages.ErrorMsg.UN_AUTHORIZE), 401);
